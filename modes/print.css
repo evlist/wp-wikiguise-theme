@@ -1,0 +1,31 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Eric van der Vlist <vdv@dyomedea.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * Stylesheet of the mode `print` of the Modes of Otherguise: loaded when the mode is active (`?mode=print`), so the page can be seen in
+ * the browser as it will be printed. The rules are keyed by the body class `modes-mode-print`, not only by @media print.
+ */
+
+body.modes-mode-print .wiki-header,
+body.modes-mode-print .wiki-footer,
+body.modes-mode-print .wiki-column,
+body.modes-mode-print .wiki-tabs,
+body.modes-mode-print .wiki-breadcrumbs,
+body.modes-mode-print .wp-block-navigation,
+body.modes-mode-print .wp-block-search { display: none !important; }
+
+body.modes-mode-print .wiki-layout { display: block; max-width: none; padding: 0; }
+body.modes-mode-print .wiki-main { max-width: none; }
+
+/* Red links are not red on paper; the notes of the page stay. */
+body.modes-mode-print a.wiki-missing,
+body.modes-mode-print .wiki-missing a { color: inherit; }
+body.modes-mode-print a { color: inherit; text-decoration: none; }
+body.modes-mode-print h1, body.modes-mode-print h2, body.modes-mode-print h3 { break-after: avoid; }
+body.modes-mode-print table, body.modes-mode-print img, body.modes-mode-print figure { break-inside: avoid; }
+
+@media print {
+	body { background: #fff; color: #000; }
+	.wiki-header, .wiki-footer, .wiki-column, .wiki-tabs, .wiki-breadcrumbs { display: none !important; }
+	.wiki-layout { display: block; padding: 0; }
+}

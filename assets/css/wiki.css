@@ -1,0 +1,89 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Eric van der Vlist <vdv@dyomedea.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * Layout of the wiki and styles of what the plugin Otherguise prints.
+ * Wide: menu | text | tools. Medium: menu | text, tools below. Narrow: one column, the menu collapsed.
+ */
+
+/* Header */
+.wiki-header { padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--wp--preset--color--rule); gap: 1.5rem; }
+.wiki-brand { font-weight: 700; font-size: 1.25rem; margin: 0; white-space: nowrap; }
+.wiki-brand a { color: inherit; }
+.wiki-search { flex: 1; max-width: 30rem; }
+.wiki-search .wp-block-search__inside-wrapper { flex-wrap: nowrap; }
+.wiki-search .wp-block-search__input { min-width: 0; padding: 0.4rem 0.6rem; border: 1px solid #72777d; }
+.wiki-search .wp-block-search__button { margin-left: 0; padding: 0.4rem 0.9rem; border: 1px solid #72777d; background: var(--wp--preset--color--panel); color: inherit; font-weight: 600; }
+
+/* Three zones */
+.wiki-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr) 14rem; gap: 2rem; max-width: 90rem; margin: 0 auto; padding: 1.25rem 1.5rem 3rem; }
+.wiki-layout > * { margin-block: 0; }
+.wiki-layout--no-columns { grid-template-columns: 15rem minmax(0, 1fr); }
+.wiki-main > * + * { margin-block-start: 0.75rem; }
+.wiki-main--solo { padding: 1.25rem 1.5rem 3rem; }
+.wiki-footer { border-top: 1px solid var(--wp--preset--color--rule); padding: 1rem 1.5rem; }
+
+/* Columns */
+.wiki-column ul { list-style: none; margin: 0; padding: 0; font-size: var(--wp--preset--font-size--small); }
+.wiki-column li { padding: 0.15rem 0; }
+.wiki-column li ul { padding-left: 0.9rem; }
+.wiki-column h2, .wiki-collapsible summary { margin: 0 0 0.4rem; padding: 0 0 0.25rem; border-bottom: 1px solid var(--wp--preset--color--rule); font-family: inherit; font-size: var(--wp--preset--font-size--small); font-weight: 700; }
+.wiki-collapsible summary { cursor: pointer; }
+
+/* Wide and medium: the collapsible parts are always open, and the summary is a plain title.
+   ::details-content keeps them open without a script; where it is not supported they stay collapsed and can be opened. */
+@supports selector(::details-content) {
+	@media (min-width: 701px) {
+		.wiki-collapsible::details-content { content-visibility: visible; display: block; }
+		.wiki-collapsible summary { list-style: none; cursor: default; pointer-events: none; }
+		.wiki-collapsible summary::-webkit-details-marker { display: none; }
+	}
+}
+
+/* Tabs and breadcrumb */
+.wiki-breadcrumbs { margin: 0 0 0.25rem; font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--muted); }
+.wiki-tabs { margin-top: 0 !important; border-bottom: 1px solid var(--wp--preset--color--rule); font-size: var(--wp--preset--font-size--small); gap: 1rem; }
+.wiki-tab { margin: 0; padding: 0.4rem 0; }
+.wiki-tab.is-current { border-bottom: 2px solid var(--wp--preset--color--contrast); margin-bottom: -1px; }
+
+/* What the plugin prints */
+.wiki-link { text-decoration: none; }
+a.wiki-missing, .wiki-missing a { color: var(--wp--preset--color--missing); }
+.wiki-branch-status { margin: 0; font-size: var(--wp--preset--font-size--small); color: var(--wp--preset--color--muted); }
+.wiki-cited-by, .wiki-angles { font-size: var(--wp--preset--font-size--small); margin-top: 1rem; }
+.wiki-cited-by ul, .wiki-angles ul { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+div.wiki-missing { padding: 0.5rem 0; }
+.wiki-missing__name { font-family: var(--wp--preset--font-family--serif); font-size: var(--wp--preset--font-size--large); }
+.wiki-missing__refusal, .wiki-missing__confirm { color: var(--wp--preset--color--muted); }
+.wiki-missing__button { padding: 0.5rem 1rem; min-height: 44px; border: 1px solid var(--wp--preset--color--link); background: var(--wp--preset--color--panel); color: var(--wp--preset--color--link); cursor: pointer; }
+.wiki-similar, .wiki-angle { margin: 0.5rem 0; }
+
+/* Footnotes written as the list that Pandoc produces */
+.footnotes, .wp-block-footnotes { font-size: var(--wp--preset--font-size--small); border-top: 1px solid var(--wp--preset--color--rule); padding-top: 0.5rem; }
+
+/* Medium */
+@media (max-width: 1100px) {
+	.wiki-layout { grid-template-columns: 14rem minmax(0, 1fr); gap: 1.5rem; }
+	.wiki-column--tools { grid-column: 2; }
+}
+
+/* Narrow: one column, 44 px targets, nothing depends on hover */
+@media (max-width: 700px) {
+	.wiki-header { padding: 0.5rem 1rem; gap: 0.5rem; flex-wrap: wrap !important; }
+	.wiki-search { order: 3; flex-basis: 100%; max-width: none; }
+	.wiki-layout, .wiki-layout--no-columns { display: block; padding: 0.75rem 1rem 2rem; }
+	.wiki-column { margin-bottom: 0.75rem; }
+	.wiki-column--tools { margin-top: 1.5rem; }
+	.wiki-collapsible summary { min-height: 44px; display: flex; align-items: center; padding: 0 0.75rem; background: var(--wp--preset--color--panel); border: 1px solid var(--wp--preset--color--rule); }
+	.wiki-collapsible > :not(summary) { padding: 0.5rem 0.75rem; }
+	.wiki-column a, .wiki-tab, .wiki-header-nav a { display: inline-block; min-height: 44px; line-height: 44px; }
+	.wiki-tab { padding-block: 0; }
+	.wiki-column ul li { padding: 0; }
+	.wiki-main--solo { padding: 0.75rem 1rem 2rem; }
+	.wp-block-search__button { min-height: 44px; }
+}
+
+/* Tables written as plain HTML (the migration from MediaWiki), not only the core Table block */
+.wiki-content table { border-collapse: collapse; }
+.wiki-content th, .wiki-content td { border: 1px solid var(--wp--preset--color--rule); padding: 0.25rem 0.5rem; text-align: left; vertical-align: top; }
+.wiki-content th { background: var(--wp--preset--color--panel); }
