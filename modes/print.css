@@ -4,16 +4,30 @@
  *
  * Stylesheet of the mode `print` of the Modes of Otherguise: loaded when the mode is active (`?mode=print`), so the page can be seen in
  * the browser as it will be printed. The rules are keyed by the body class `modes-mode-print`, not only by @media print.
+ * Only the page is kept: its title and its content (no header of the site, no menu, no columns, no tabs, no tools, no footer).
  */
 
+body.modes-mode-print #wpadminbar,
+body.modes-mode-print .skip-link,
+body.modes-mode-print .wp-site-blocks > header,
+body.modes-mode-print .wp-site-blocks > footer,
+body.modes-mode-print .wp-block-template-part,
 body.modes-mode-print .wiki-header,
 body.modes-mode-print .wiki-footer,
 body.modes-mode-print .wiki-column,
 body.modes-mode-print .wiki-tabs,
 body.modes-mode-print .wiki-breadcrumbs,
+body.modes-mode-print .wiki-branch-status,
+body.modes-mode-print .wiki-cited-by,
+body.modes-mode-print .wiki-angles,
 body.modes-mode-print .wp-block-navigation,
-body.modes-mode-print .wp-block-search { display: none !important; }
+body.modes-mode-print .wp-block-search,
+body.modes-mode-print .wp-block-details,
+body.modes-mode-print .wp-block-comments,
+body.modes-mode-print .wp-block-post-comments-form { display: none !important; }
 
+body.modes-mode-print { margin: 0; }
+html:has(body.modes-mode-print) { margin-top: 0 !important; }
 body.modes-mode-print .wiki-layout { display: block; max-width: none; padding: 0; }
 body.modes-mode-print .wiki-main { max-width: none; }
 
@@ -26,6 +40,4 @@ body.modes-mode-print table, body.modes-mode-print img, body.modes-mode-print fi
 
 @media print {
 	body { background: #fff; color: #000; }
-	.wiki-header, .wiki-footer, .wiki-column, .wiki-tabs, .wiki-breadcrumbs { display: none !important; }
-	.wiki-layout { display: block; padding: 0; }
 }

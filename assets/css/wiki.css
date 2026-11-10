@@ -87,3 +87,12 @@ div.wiki-missing { padding: 0.5rem 0; }
 .wiki-content table { border-collapse: collapse; }
 .wiki-content th, .wiki-content td { border: 1px solid var(--wp--preset--color--rule); padding: 0.25rem 0.5rem; text-align: left; vertical-align: top; }
 .wiki-content th { background: var(--wp--preset--color--panel); }
+
+/* Printing from the browser in any mode keeps only the page: the stylesheet of the mode print (modes/print.css) is loaded only in that mode. */
+@media print {
+	#wpadminbar, .wiki-header, .wiki-footer, .wiki-column, .wiki-tabs, .wiki-breadcrumbs, .wp-block-navigation, .wp-block-search, .wp-block-details, .skip-link { display: none !important; }
+	html { margin-top: 0 !important; }
+	.wiki-layout, .wiki-layout--no-columns { display: block; max-width: none; padding: 0; }
+	.wiki-main--solo { padding: 0; }
+	a.wiki-missing, .wiki-missing a { color: inherit; }
+}
